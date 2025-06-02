@@ -36,14 +36,15 @@ class App(customtkinter.CTk):
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
-        self.checkbox_frame_1 = MyCheckboxFrame(self, "TEST_TITLE_1", values=["value 1", "value 2", "value 3"])
-        self.checkbox_frame_1.grid(row=0, column=0, padx=10, pady=(10, 0), sticky="nsew")
-        self.checkbox_frame_2 = MyCheckboxFrame(self, "TEST_TITLE_2", values=["option 1", "option 2"])
-        self.checkbox_frame_2.grid(row=0, column=1, padx=(0, 10), pady=(10, 0), sticky="nsew")
+        self.main_prompt = customtkinter.CTkTextbox(master=self, width=400, corner_radius=0)
 
-        self.button = customtkinter.CTkButton(self, text="my button", command=self.button_callback)
+        self.main_prompt.grid(row=0, column=0, sticky="nsew")
+
+        self.button = customtkinter.CTkButton(self, text="SEND TO GPT NANO", command=self.button_callback)
         self.button.grid(row=3, column=0, padx=10, pady=10, sticky="ew")
 
     def button_callback(self):
-        print("checkbox_frame_1:", self.checkbox_frame_1.get())
-        print("checkbox_frame_2:", self.checkbox_frame_2.get())
+        prompt_content = self.main_prompt.get('1.0', 'end-1c').strip().replace("\n", " ")
+        print(type(prompt_content))
+        print(f"Content of box = {prompt_content}")
+
