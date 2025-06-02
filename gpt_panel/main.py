@@ -1,4 +1,12 @@
-import customtkinter
+import buttons
 
-app = customtkinter.CTk()
-app.mainloop()
+from App import App
+
+
+
+def main():
+    app = App()
+
+    app.mainloop()
+
+main()
