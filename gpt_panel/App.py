@@ -1,4 +1,5 @@
 import customtkinter
+import buttons
 
 WINDOWS_WIDTH = 1200
 WINDOWS_HEIGHT = 1900
