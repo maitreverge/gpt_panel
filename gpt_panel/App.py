@@ -1,8 +1,10 @@
 import customtkinter
 import buttons
+from Gpt_engine import Gpt_engine
 
-WINDOWS_WIDTH = 1200
-WINDOWS_HEIGHT = 1900
+
+WINDOWS_WIDTH = 600
+WINDOWS_HEIGHT = 950
 
 class MyCheckboxFrame(customtkinter.CTkFrame):
     def __init__(self, master, title, values):
@@ -31,7 +33,9 @@ class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("my app")
+        self.gpt_engine = Gpt_engine()
+
+        self.title("GPT PANEL")
         self.geometry(f"{WINDOWS_HEIGHT}x{WINDOWS_WIDTH}")
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
@@ -45,6 +49,12 @@ class App(customtkinter.CTk):
 
     def button_callback(self):
         prompt_content = self.main_prompt.get('1.0', 'end-1c').strip().replace("\n", " ")
-        print(type(prompt_content))
-        print(f"Content of box = {prompt_content}")
+        # print(type(prompt_content))
+        # print(f"Content of box = {prompt_content}")
+
+        # Now printing the API response
+        print("\n##########\nAPI Response\n##########\n\n")
+        self.gpt_engine.send_request(prompt_content)
+
+
 

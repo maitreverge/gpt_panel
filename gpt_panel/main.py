@@ -1,15 +1,16 @@
 import buttons
 
 from App import App
-from Gpt_engine import Gpt_engine
 
 def main():
 
-    gpt_engine = Gpt_engine()
+    # gpt_engine = Gpt_engine()
 
-    print(gpt_engine)
+    # print(gpt_engine)
     
     app = App()
+
+    print(app.gpt_engine) # This the API key
 
     app.mainloop()
 

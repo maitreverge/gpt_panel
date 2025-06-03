@@ -3,3 +3,4 @@ openai
 customtkinter
 flake8
 black
+tiktoken
