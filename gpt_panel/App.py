@@ -53,6 +53,7 @@ class App(customtkinter.CTk):
         # print(f"Content of box = {prompt_content}")
 
         # Now printing the API response
+        # print(f"\n##########\nid_response{self.gpt_engine.current_reponse_id}\n\n##########\n")
         print("\n##########\nAPI Response\n##########\n\n")
         self.gpt_engine.send_request(prompt_content)
 

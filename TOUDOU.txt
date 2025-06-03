@@ -1,0 +1,16 @@
+✅
+⛔
+
+TODO BRAINSTORM :
+⛔ Make a Model selector
+⛔ Make the prompt 
+⛔ Build an conv history
+⛔ Press enter : send the request
+⛔ Make the button send a logo next to the text
+
+⛔ Print the answer in the GUI 
+⛔ Total pricer parser
+
+3/06:
+✅ Enable GPT context
+✅ Enable total pricer with GPT-4.1 nano
