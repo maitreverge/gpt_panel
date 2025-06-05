@@ -26,6 +26,13 @@ class App(ctk.CTk):
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
+        
+        self.model_selector = ctk.CTkSegmentedButton(
+            self,
+            values=["Value 1", "Value 2", "Value 3"],
+            command=segmented_button_callback
+        )
+
         self.answer_textbox = ctk.CTkTextbox(
             self,
             corner_radius=10,
@@ -51,7 +58,7 @@ class App(ctk.CTk):
         self.prompt_textbox.bind("<KeyRelease>", self.adjust_textbox_height)
 
         # ! IMPLEMENT BUTTON ENTER = SEND PROMPT
-        # self.prompt_textbox.bind("<KeyRelease-Return>", command=self.button_callback)
+        self.prompt_textbox.bind("<KeyRelease-Return>", command=self.button_callback)
 
         self.send_button = ctk.CTkButton(
             self,
@@ -80,7 +87,8 @@ class App(ctk.CTk):
         new_height = min(max(40, num_lines * 20), 120)
         self.prompt_textbox.configure(height=new_height)
 
-    def button_callback(self):
+    # ! IMPORTANT = write an event=None for callback eneds with bind
+    def button_callback(self, event=None):
         prompt_content = self.prompt_textbox.get(1.0, tk.END).strip().replace("\n", " ")
         # print(type(prompt_content))
         # print(f"Content of box = {prompt_content}")
@@ -99,6 +107,7 @@ class App(ctk.CTk):
         Write answer in the answer textbox. It unlocks it, write in it, then lock
         it again to avoid the user to modify it
         """
+        self.prompt_textbox.delete("1.0", tk.END)
 
         self.answer_textbox.configure(state="normal")
         self.answer_textbox.insert(index=tk.END, text=answer + "\n")
