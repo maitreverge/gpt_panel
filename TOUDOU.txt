@@ -2,8 +2,10 @@
 ⛔
 
 TODO BRAINSTORM :
-⛔ Make a Model selector
-⛔ Total pricer parser
+⛔ Build an conv history (make the)
+⛔ Selector for lentgh answer 
+⛔ Test price-engine on a empty day
+⛔ 
 
 3/06:
 ✅ Enable GPT context
@@ -14,7 +16,9 @@ TODO BRAINSTORM :
 ✅ Prompt textbox dynamically resized 
 ✅ Make the button send a logo next to the text
 ✅ Press enter : send the request
+✅ Make a Model selector
+✅ Updated Price_engine
+✅ Total pricer parser
 
 6/06:
 ⛔ 
-⛔ Build an conv history (make the)

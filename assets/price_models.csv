@@ -1,0 +1,4 @@
+model,input,cache,output
+gpt-4.1,2,0.5,8
+gpt-4.1-mini,0.4,0.1,1.6
+gpt-4.1-nano,0.1,0.025,0.4
