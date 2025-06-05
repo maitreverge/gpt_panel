@@ -68,9 +68,11 @@ class Gpt_engine:
         # Save the current conv id.
         self.current_reponse_id = self.current_reponse_id or response.id
 
+        print(f"CURRENT RESPONSE ID = {self.current_reponse_id}")
+
         self.update_tokens(prompt, response.output_text, response.output_text)
 
-        print(response.output_text)
+        # print(response.output_text)
 
         self.current_answer = response.output_text
     

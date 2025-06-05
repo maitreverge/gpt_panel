@@ -4,3 +4,4 @@ customtkinter
 flake8
 black
 tiktoken
+pillow

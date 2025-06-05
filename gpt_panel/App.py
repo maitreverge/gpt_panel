@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import tkinter as tk
 import buttons
+from PIL import Image
 from Gpt_engine import Gpt_engine
 
 
@@ -12,6 +13,8 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__()
 
+        self.img_send_button = ctk.CTkImage(dark_image=Image.open("../assets/dark_send.jpg"))
+
         ctk.set_appearance_mode("light")
 
         self.gpt_engine = Gpt_engine()
@@ -21,7 +24,7 @@ class App(ctk.CTk):
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
-        self.answer_textbox = ctk.CTkTextbox(self, width=200, corner_radius=0, fg_color="red", state="disabled")
+        self.answer_textbox = ctk.CTkTextbox(self, width=200, corner_radius=0, fg_color="#C0DF85", state="disabled")
 
         self.answer_textbox.grid(row=0, column=0)
 
@@ -29,8 +32,8 @@ class App(ctk.CTk):
 
         self.main_prompt.grid(row=1, column=0, sticky="ew")
 
-        self.button = ctk.CTkButton(self, text="SEND TO GPT NANO", command=self.button_callback)
-        self.button.grid(row=1, column=1, padx=10, pady=10, sticky="e")
+        self.send_button = ctk.CTkButton(self,text="SEND TO GPT", command=self.button_callback, image=self.img_send_button)
+        self.send_button.grid(row=1, column=1, padx=10, pady=10, sticky="e")
 
     def button_callback(self):
         prompt_content = self.main_prompt.get('1.0', 'end-1c').strip().replace("\n", " ")
