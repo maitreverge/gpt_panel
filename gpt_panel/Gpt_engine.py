@@ -17,6 +17,8 @@ class Gpt_engine:
 
         self._total_spent = 0
 
+        self.current_answer = ""
+
         # Those values are for gpt-4.1-nano model, price per token
         self.input_token_price = 0.1 / MILLION
         self.output_token_price = 0.4 / MILLION
@@ -39,7 +41,7 @@ class Gpt_engine:
 
     def update_tokens(self, input, output, cache):
         """
-        Update input, output and cache-tokens
+        Update input, output and cache-tokens, and increment the total spent in OpenAPI usage.
         """
         self.total_token_input += len(self.token_encoding.encode(input))
         self.total_token_output += len(self.token_encoding.encode(output))
@@ -69,6 +71,8 @@ class Gpt_engine:
         self.update_tokens(prompt, response.output_text, response.output_text)
 
         print(response.output_text)
+
+        self.current_answer = response.output_text
     
     # @proprety == Getter
     @property

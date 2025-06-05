@@ -10,6 +10,7 @@ def main():
 
     app.mainloop()
 
+    # Prints total spent within the execution
     print(app.gpt_engine.total_spent)
 
 main()
