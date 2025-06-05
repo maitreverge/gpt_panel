@@ -50,6 +50,9 @@ class App(ctk.CTk):
 
         self.prompt_textbox.bind("<KeyRelease>", self.adjust_textbox_height)
 
+        # ! IMPLEMENT BUTTON ENTER = SEND PROMPT
+        # self.prompt_textbox.bind("<KeyRelease-Return>", command=self.button_callback)
+
         self.send_button = ctk.CTkButton(
             self,
             text="SEND TO GPT",

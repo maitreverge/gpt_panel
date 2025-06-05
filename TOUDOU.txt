@@ -3,10 +3,7 @@
 
 TODO BRAINSTORM :
 ⛔ Make a Model selector
-⛔ Build an conv history
 ⛔ Press enter : send the request
-⛔ Make the button send a logo next to the text
-
 ⛔ Total pricer parser
 
 3/06:
@@ -14,4 +11,10 @@ TODO BRAINSTORM :
 ✅ Enable total pricer with GPT-4.1 nano
 
 5/06:
-⛔ Print the answer in the GUI 
+✅ Print the answer in the GUI 
+✅ Prompt textbox dynamically resized 
+✅ Make the button send a logo next to the text
+
+6/06:
+⛔ TO FINISH : button enter == send prompt
+⛔ Build an conv history (make the)
