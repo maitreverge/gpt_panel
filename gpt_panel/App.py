@@ -26,11 +26,21 @@ class App(ctk.CTk):
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
-        
+
         self.model_selector = ctk.CTkSegmentedButton(
             self,
-            values=["Value 1", "Value 2", "Value 3"],
-            command=segmented_button_callback
+            fg_color="#F39C19",
+            border_width=3,
+            values=self.gpt_engine.models,
+            command=self.update_model,
+        )
+
+        # Default first model == gpt-4.1-nano
+        self.model_selector.set(self.gpt_engine.models[0])
+
+        self.model_selector.grid(
+            row=0,
+            column=2,
         )
 
         self.answer_textbox = ctk.CTkTextbox(
@@ -67,6 +77,11 @@ class App(ctk.CTk):
             image=self.img_send_button,
         )
         self.send_button.grid(row=1, column=1, padx=10, pady=10, sticky="e")
+
+    def update_model(self, event=None):
+        print(f"### UPDATING MODELS ###\nPrevious models value = {self.gpt_engine.current_model}")
+        self.gpt_engine.current_model = self.model_selector.get()
+        print(f"Current models value = {self.gpt_engine.current_model}")
     
     def adjust_textbox_height(self, event=None):
         """Dynamically adjust the height of the prompt textbox based on content"""

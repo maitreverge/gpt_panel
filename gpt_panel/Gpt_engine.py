@@ -1,15 +1,25 @@
 from openai import OpenAI
+from Price_engine import Price_engine
 import tiktoken
 
 MILLION = 1000000
 
 
-class Gpt_engine:
+class Gpt_engine():
     def __init__(self):
         self._api_key = self.read_api_key()
         self.client = OpenAI(api_key=self._api_key)
         self.current_reponse_id = str()
-        self.model = "gpt-4.1-nano"
+        self.models = [
+            "gpt-4.1-nano",
+            "gpt-4.1-mini",
+            "gpt-4.1",
+        ]
+        
+        # Move everything related to price in the object Price_engine
+        self.price_engine = Price_engine()
+
+        self.current_model = "gpt-4.1-nano"
 
         self.total_token_input = 0
         self.total_token_output = 0
@@ -55,9 +65,11 @@ class Gpt_engine:
 
     def send_request(self, prompt):
         args = {
-            "model": self.model,
+            "model": self.current_model,
             "input": prompt,
         }
+
+        print(f"CURRENT MODEL USED = {self.current_model}")
 
         # Append the previous context ID
         if self.current_reponse_id:
