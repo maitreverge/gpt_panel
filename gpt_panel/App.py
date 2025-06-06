@@ -41,6 +41,21 @@ class App(ctk.CTk):
             column=2,
         )
 
+        self.length_slider = ctk.CTkSlider(
+            self,
+            from_=1,
+            to=4,
+            number_of_steps=3,
+            command=self.update_length
+        )
+
+        self.length_slider.grid(
+            row=0,
+            column=3,
+        )
+
+        
+
         self.answer_textbox = ctk.CTkTextbox(
             self,
             corner_radius=10,
@@ -78,6 +93,9 @@ class App(ctk.CTk):
         )
         self.send_button.grid(row=1, column=1, padx=10, pady=10, sticky="e")
 
+    def update_length(self, event=None):
+        print(f"Value of length selector = {self.length_slider.get()}")
+
     def update_model(self, event=None):
         print("### UPDATING MODELS ###")
         print(f"Previous models value = {self.gpt_engine.current_model}")
@@ -103,7 +121,7 @@ class App(ctk.CTk):
         new_height = min(max(40, num_lines * 20), 120)
         self.prompt_textbox.configure(height=new_height)
 
-    # ! IMPORTANT = write an event=None for callback eneds with bind
+    # ! IMPORTANT = write an event=None for callback events with bind
     def button_callback(self, event=None):
         prompt_content = self.prompt_textbox.get(1.0, tk.END).replace("\n", " ")
 

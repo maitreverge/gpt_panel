@@ -7,7 +7,7 @@ MILLION = 1000000
 PRICE_FILE = "../assets/price_models.csv"
 
 
-class Price_engine:
+class Price_engine():
     def __init__(self):
         self.prices = self.price_parser()
 
