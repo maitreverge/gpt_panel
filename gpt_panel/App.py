@@ -56,7 +56,21 @@ class App(ctk.CTk):
             column=3,
         )
 
-        
+        self.temperature_slider = ctk.CTkSlider(
+            self,
+            from_=0,
+            to=200,
+            # variable=tk.DoubleVar,
+            # border_color="#EC0808",
+            button_color="#4DFA08",
+            number_of_steps=200,
+            command=self.update_temperature
+        )
+
+        self.temperature_slider.grid(
+            row=1,
+            column=3,
+        )
 
         self.answer_textbox = ctk.CTkTextbox(
             self,
@@ -97,7 +111,14 @@ class App(ctk.CTk):
 
     def update_length(self, event=None):
         self.gpt_engine.lenght_choice = int(self.length_slider.get())
-        print(f"Value of length selector = {int(self.length_slider.get())}")
+        # print(f"Value of length selector = {int(self.length_slider.get())}")
+
+    def update_temperature(self, event=None):
+        """
+        Update the temperature in the `gpt_engine` object, dividing it by 100. The CtkSlider only accepts `int` possibles values.
+        """
+        self.gpt_engine.current_temperature = self.temperature_slider.get() / 100
+        print(f"Value of temperature selector = {self.temperature_slider.get() / 100}")
 
     def update_model(self, event=None):
         print("### UPDATING MODELS ###")

@@ -16,6 +16,8 @@ class Gpt_engine:
         self.dict_lenght_choices = self.init_lenght_choice()
         self.lenght_choice = 3 # Default middle choice
 
+        self.current_temperature = 1.00
+
         # Move everything related to price in the object Price_engine
         self.price_engine = Price_engine()
         self.current_model = "gpt-4.1-nano"
@@ -55,7 +57,10 @@ class Gpt_engine:
             "instructions": self.dict_lenght_choices[self.lenght_choice],
             "model": self.current_model,
             "input": prompt,
+            "temperature": self.current_temperature,
         }
+
+        print(f"Current temperature = {self.current_temperature}")
 
         print(f"CURRENT MODEL USED = {self.current_model}")
 

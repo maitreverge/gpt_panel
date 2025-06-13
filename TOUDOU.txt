@@ -3,7 +3,6 @@
 
 TODO BRAINSTORM :
 ⛔ Build an conv history (make the)
-⛔ Selector for temperature
 ⛔ Test price-engine on a empty day
 ⛔ 
 
@@ -22,3 +21,4 @@ TODO BRAINSTORM :
 
 13/06:
 ✅ Selector for lentgh answer 
+✅ Selector for temperature
