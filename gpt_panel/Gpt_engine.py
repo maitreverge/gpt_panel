@@ -13,6 +13,9 @@ class Gpt_engine:
             "gpt-4.1",
         ]
 
+        self.dict_lenght_choices = self.init_lenght_choice()
+        self.lenght_choice = 3 # Default middle choice
+
         # Move everything related to price in the object Price_engine
         self.price_engine = Price_engine()
         self.current_model = "gpt-4.1-nano"
@@ -21,6 +24,22 @@ class Gpt_engine:
     def __str__(self):
         return f"Current API key= {self._api_key[0:4]}....{self._api_key[-6:-1]}"
 
+    def init_lenght_choice(self) :
+        """
+        Read length instruction to be as pre-prompt instructions for slider lenght selector
+        """
+        result = {}
+
+        with open('../assets/prompt_lenght/prompt_length.md', 'r') as f:
+            for _ in range(5):
+                data = f.readline()
+                key = int(data.split(" - ")[0])
+                instruction = f.readline()
+                result[key] = instruction
+
+        # print(result)
+        return result
+    
     def read_api_key(self):
         """
         Read the API key from the .env file
@@ -33,6 +52,7 @@ class Gpt_engine:
 
     def send_request(self, prompt):
         args = {
+            "instructions": self.dict_lenght_choices[self.lenght_choice],
             "model": self.current_model,
             "input": prompt,
         }

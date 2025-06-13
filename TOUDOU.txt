@@ -3,7 +3,7 @@
 
 TODO BRAINSTORM :
 ⛔ Build an conv history (make the)
-⛔ Selector for lentgh answer 
+⛔ Selector for temperature
 ⛔ Test price-engine on a empty day
 ⛔ 
 
@@ -20,5 +20,5 @@ TODO BRAINSTORM :
 ✅ Updated Price_engine
 ✅ Total pricer parser
 
-6/06:
-⛔ 
+13/06:
+✅ Selector for lentgh answer 

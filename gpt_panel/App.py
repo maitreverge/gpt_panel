@@ -44,8 +44,10 @@ class App(ctk.CTk):
         self.length_slider = ctk.CTkSlider(
             self,
             from_=1,
-            to=4,
-            number_of_steps=3,
+            to=5,
+            # border_color="#EC0808",
+            button_color="#FA0808",
+            number_of_steps=4,
             command=self.update_length
         )
 
@@ -94,7 +96,8 @@ class App(ctk.CTk):
         self.send_button.grid(row=1, column=1, padx=10, pady=10, sticky="e")
 
     def update_length(self, event=None):
-        print(f"Value of length selector = {self.length_slider.get()}")
+        self.gpt_engine.lenght_choice = int(self.length_slider.get())
+        print(f"Value of length selector = {int(self.length_slider.get())}")
 
     def update_model(self, event=None):
         print("### UPDATING MODELS ###")
