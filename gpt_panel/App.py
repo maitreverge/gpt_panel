@@ -8,6 +8,7 @@ WINDOWS_WIDTH = 600
 WINDOWS_HEIGHT = 950
 
 class CTkSliderWithValue(ctk.CTkFrame):
+    # Need to put default values in __init__ function
     def __init__(self, master, title="Slider", min_value=0, max_value=100, default_value=50, width=300, nb_steps=5, passed_function=None, **kwargs):
         super().__init__(master, **kwargs)
         
@@ -34,17 +35,15 @@ class CTkSliderWithValue(ctk.CTkFrame):
             width=width,
             command=lambda value: self._update_value_label(value, call_callback=True),
             number_of_steps=nb_steps,
-            # command=passed_function
         )
 
+        self.slider.grid(row=1, column=0, columnspan=2, padx=5, pady=(0, 5), sticky="ew")
+        
         """
         The callback is called before self.length_slider exists on your App instance.
         Only call the callback after the widget is fully initialized and attached to the parent.
         Use a flag to control when the callback is called.
         """
-        
-        self.slider.grid(row=1, column=0, columnspan=2, padx=5, pady=(0, 5), sticky="ew")
-        
         # Initialize value display
         self._update_value_label(default_value, call_callback=False)
 
@@ -122,7 +121,7 @@ class App(ctk.CTk):
             max_value=2, 
             default_value=1,
             nb_steps=200,
-            # passed_function=self.update_length()
+            passed_function=self.update_temperature
         )
 
         self.temperature_slider.grid(
