@@ -3,7 +3,7 @@
 
 TODO BRAINSTORM :
 ⛔ Build an conv history (make the)
-⛔ Test price-engine on a empty day
+⛔ Extract the number tokens from the json (don't need to use the tiktoken library, just need to extract data from each response + potentially add cached tokens)
 ⛔ 
 
 3/06:

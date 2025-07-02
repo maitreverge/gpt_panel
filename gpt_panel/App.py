@@ -7,6 +7,51 @@ from Gpt_engine import Gpt_engine
 WINDOWS_WIDTH = 600
 WINDOWS_HEIGHT = 950
 
+class CTkSliderWithValue(ctk.CTkFrame):
+    def __init__(self, master, title="Slider", min_value=0, max_value=100, default_value=50, width=300, nb_steps=5, **kwargs):
+        super().__init__(master, **kwargs)
+        
+        self.min_value = min_value
+        self.max_value = max_value
+        self.current_value = ctk.DoubleVar(value=default_value)
+        
+        # Create title label
+        self.title_label = ctk.CTkLabel(self, text=title, anchor="w")
+        self.title_label.grid(row=0, column=0, sticky="w", padx=5, pady=(5, 0))
+        
+        # Create value label
+        self.value_label = ctk.CTkLabel(self, text=str(default_value), width=50)
+        self.value_label.grid(row=0, column=1, sticky="e", padx=5, pady=(5, 0))
+        
+        # Create slider
+        self.slider = ctk.CTkSlider(
+            self, 
+            from_=min_value, 
+            to=max_value, 
+            variable=self.current_value,
+            width=width,
+            command=self._update_value_label,
+            number_of_steps=nb_steps
+        )
+        self.slider.grid(row=1, column=0, columnspan=2, padx=5, pady=(0, 5), sticky="ew")
+        
+        # Initialize value display
+        self._update_value_label(default_value)
+    
+    def _update_value_label(self, value):
+        # Update the display with the current value
+        formatted_value = float(value) if isinstance(value, float) else int(value)
+        self.value_label.configure(text=f"{formatted_value}")
+        
+    def get(self):
+        # Return the current slider value
+        return self.current_value.get()
+    
+    def set(self, value):
+        # Set the slider value
+        self.current_value.set(value)
+        self._update_value_label(value)
+
 
 class App(ctk.CTk):
     def __init__(self):
@@ -41,35 +86,37 @@ class App(ctk.CTk):
             column=2,
         )
 
-        self.length_slider = ctk.CTkSlider(
-            self,
-            from_=1,
-            to=5,
-            # border_color="#EC0808",
-            button_color="#FA0808",
-            number_of_steps=4,
-            command=self.update_length
+        self.frame_sliders = ctk.CTkFrame(self)
+        self.frame_sliders.grid(row=2, column=2)
+
+        self.length_slider = CTkSliderWithValue(
+            self.frame_sliders,
+            title="LENGHT SLIDER",
+            min_value=0, 
+            max_value=5, 
+            default_value=2.5,
+            nb_steps=4
+            # command=self.update_length # ! OBJECT NOT YET IN THE FUNCTION
         )
 
         self.length_slider.grid(
             row=0,
-            column=3,
+            column=0,
         )
 
-        self.temperature_slider = ctk.CTkSlider(
-            self,
-            from_=0,
-            to=200,
-            # variable=tk.DoubleVar,
-            # border_color="#EC0808",
-            button_color="#4DFA08",
-            number_of_steps=200,
-            command=self.update_temperature
+        self.temperature_slider = CTkSliderWithValue(
+            self.frame_sliders,
+            title="TEMPERATURE SLIDER",
+            min_value=0, 
+            max_value=2, 
+            default_value=1,
+            nb_steps=200
+            # command=self.update_length # ! OBJECT NOT YET IN THE FUNCTION
         )
 
         self.temperature_slider.grid(
             row=1,
-            column=3,
+            column=0,
         )
 
         self.answer_textbox = ctk.CTkTextbox(

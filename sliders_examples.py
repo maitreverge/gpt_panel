@@ -23,7 +23,8 @@ class CTkSliderWithValue(ctk.CTkFrame):
             to=max_value, 
             variable=self.current_value,
             width=width,
-            command=self._update_value_label
+            command=self._update_value_label,
+            number_of_steps=4 # ! Update the number of steps
         )
         self.slider.grid(row=1, column=0, columnspan=2, padx=5, pady=(0, 5), sticky="ew")
         
@@ -32,7 +33,7 @@ class CTkSliderWithValue(ctk.CTkFrame):
     
     def _update_value_label(self, value):
         # Update the display with the current value
-        formatted_value = int(value) if isinstance(value, int) else value
+        formatted_value = float(value) if isinstance(value, float) else value
         self.value_label.configure(text=f"{formatted_value}")
         
     def get(self):
