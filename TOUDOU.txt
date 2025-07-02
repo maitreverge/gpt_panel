@@ -22,3 +22,9 @@ TODO BRAINSTORM :
 13/06:
 ✅ Selector for lentgh answer 
 ✅ Selector for temperature
+
+02/07:
+- Temperature and lenght sliders working
+
+NEED TO IMPLEMENT :
+Sliders for max output tokens

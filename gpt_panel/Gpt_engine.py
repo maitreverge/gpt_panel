@@ -17,6 +17,8 @@ class Gpt_engine:
         self.lenght_choice = 3 # Default middle choice
 
         self.current_temperature = 1.00
+        # Amount minimum is 16 tokens per OpenAI documentation
+        self.max_output_tokens = 2048
 
         # Move everything related to price in the object Price_engine
         self.price_engine = Price_engine()
