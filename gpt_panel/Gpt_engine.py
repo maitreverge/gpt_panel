@@ -64,6 +64,8 @@ class Gpt_engine:
 
         print(f"CURRENT MODEL USED = {self.current_model}")
 
+        print(f"Current instruction mode selected = {self.lenght_choice}")
+
         # Append the previous context ID
         if self.current_reponse_id:
             args.update({"previous_response_id": self.current_reponse_id})

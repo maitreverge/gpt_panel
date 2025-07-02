@@ -8,9 +8,11 @@ WINDOWS_WIDTH = 600
 WINDOWS_HEIGHT = 950
 
 class CTkSliderWithValue(ctk.CTkFrame):
-    def __init__(self, master, title="Slider", min_value=0, max_value=100, default_value=50, width=300, nb_steps=5, **kwargs):
+    def __init__(self, master, title="Slider", min_value=0, max_value=100, default_value=50, width=300, nb_steps=5, passed_function=None, **kwargs):
         super().__init__(master, **kwargs)
         
+        self.passed_function = passed_function
+
         self.min_value = min_value
         self.max_value = max_value
         self.current_value = ctk.DoubleVar(value=default_value)
@@ -30,19 +32,28 @@ class CTkSliderWithValue(ctk.CTkFrame):
             to=max_value, 
             variable=self.current_value,
             width=width,
-            command=self._update_value_label,
-            number_of_steps=nb_steps
+            command=lambda value: self._update_value_label(value, call_callback=True),
+            number_of_steps=nb_steps,
+            # command=passed_function
         )
+
+        """
+        The callback is called before self.length_slider exists on your App instance.
+        Only call the callback after the widget is fully initialized and attached to the parent.
+        Use a flag to control when the callback is called.
+        """
+        
         self.slider.grid(row=1, column=0, columnspan=2, padx=5, pady=(0, 5), sticky="ew")
         
         # Initialize value display
-        self._update_value_label(default_value)
-    
-    def _update_value_label(self, value):
-        # Update the display with the current value
+        self._update_value_label(default_value, call_callback=False)
+
+    def _update_value_label(self, value, call_callback=True):
         formatted_value = float(value) if isinstance(value, float) else int(value)
         self.value_label.configure(text=f"{formatted_value}")
-        
+        if self.passed_function and call_callback:
+            self.passed_function()
+
     def get(self):
         # Return the current slider value
         return self.current_value.get()
@@ -92,11 +103,11 @@ class App(ctk.CTk):
         self.length_slider = CTkSliderWithValue(
             self.frame_sliders,
             title="LENGHT SLIDER",
-            min_value=0, 
+            min_value=1, 
             max_value=5, 
-            default_value=2.5,
-            nb_steps=4
-            # command=self.update_length # ! OBJECT NOT YET IN THE FUNCTION
+            default_value=3,
+            nb_steps=4, # nb steps MOINS celui tout a gauche
+            passed_function=self.update_length
         )
 
         self.length_slider.grid(
@@ -110,8 +121,8 @@ class App(ctk.CTk):
             min_value=0, 
             max_value=2, 
             default_value=1,
-            nb_steps=200
-            # command=self.update_length # ! OBJECT NOT YET IN THE FUNCTION
+            nb_steps=200,
+            # passed_function=self.update_length()
         )
 
         self.temperature_slider.grid(
@@ -164,8 +175,8 @@ class App(ctk.CTk):
         """
         Update the temperature in the `gpt_engine` object, dividing it by 100. The CtkSlider only accepts `int` possibles values.
         """
-        self.gpt_engine.current_temperature = self.temperature_slider.get() / 100
-        print(f"Value of temperature selector = {self.temperature_slider.get() / 100}")
+        self.gpt_engine.current_temperature = self.temperature_slider.get()
+        # print(f"Value of temperature selector = {self.temperature_slider.get()}")
 
     def update_model(self, event=None):
         print("### UPDATING MODELS ###")
