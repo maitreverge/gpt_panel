@@ -7,6 +7,9 @@ from Gpt_engine import Gpt_engine
 WINDOWS_WIDTH = 600
 WINDOWS_HEIGHT = 950
 
+MIN_TOKEN_OUTPUT = 16
+MAX_TOKEN_OUTPUT = 32768
+
 class CTkSliderWithValue(ctk.CTkFrame):
     # Need to put default values in __init__ function
     def __init__(self, master, title="Slider", min_value=0, max_value=100, default_value=50, width=300, nb_steps=5, passed_function=None, **kwargs):
@@ -129,6 +132,21 @@ class App(ctk.CTk):
             column=0,
         )
 
+        self.max_output_tokens_slider = CTkSliderWithValue(
+            self.frame_sliders,
+            title="MAX OUTPUT SLIDERS",
+            min_value=MIN_TOKEN_OUTPUT, 
+            max_value=MAX_TOKEN_OUTPUT,
+            default_value=2048,
+            nb_steps=MAX_TOKEN_OUTPUT - MIN_TOKEN_OUTPUT - 1,
+            passed_function=self.update_max_output_tokens
+        )
+
+        self.max_output_tokens_slider.grid(
+            row=2,
+            column=0,
+        )
+
         self.answer_textbox = ctk.CTkTextbox(
             self,
             corner_radius=10,
@@ -176,6 +194,14 @@ class App(ctk.CTk):
         """
         self.gpt_engine.current_temperature = self.temperature_slider.get()
         # print(f"Value of temperature selector = {self.temperature_slider.get()}")
+    
+    def update_max_output_tokens(self, event=None):
+        """
+        Slider function which updates the maximum amount of tokens for a given API response.
+
+        """
+        # print(f"Update max output tokens : {self.max_output_tokens_slider.get()}")
+        self.gpt_engine.max_output_tokens = int(self.max_output_tokens_slider.get())
 
     def update_model(self, event=None):
         print("### UPDATING MODELS ###")

@@ -17,7 +17,8 @@ class Gpt_engine:
         self.lenght_choice = 3 # Default middle choice
 
         self.current_temperature = 1.00
-        # Amount minimum is 16 tokens per OpenAI documentation
+
+        # ! Token range 16 - 32768(for 4.1, 4.1 mini and 4.1 nano)
         self.max_output_tokens = 2048
 
         # Move everything related to price in the object Price_engine
@@ -60,6 +61,7 @@ class Gpt_engine:
             "model": self.current_model,
             "input": prompt,
             "temperature": self.current_temperature,
+            "max_output_tokens": self.max_output_tokens,
         }
 
         print(f"Current temperature = {self.current_temperature}")
