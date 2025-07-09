@@ -2,8 +2,10 @@
 ⛔
 
 TODO BRAINSTORM :
-⛔ Build an conv history (make the)
-⛔ Extract the number tokens from the json (don't need to use the tiktoken library, just need to extract data from each response + potentially add cached tokens)
+⛔ Make 3 little "?" buttons for the 3 sliders
+⛔ Make an interface for entering the API key at the beginning
+⛔ 
+⛔ 
 ⛔ 
 
 3/06:
@@ -24,7 +26,10 @@ TODO BRAINSTORM :
 ✅ Selector for temperature
 
 02/07:
-- Temperature and lenght sliders working
+✅ Temperature and lenght sliders working
 
-NEED TO IMPLEMENT :
-Sliders for max output tokens
+09/07:
+✅ Selector for max output tokens
+✅ Bottom and top little text
+✅ Better colors and shapes, windows resizing
+✅ Prompt window resize without making top content overlap above window

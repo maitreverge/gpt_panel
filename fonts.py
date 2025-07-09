@@ -1,9 +1,7 @@
-import tkinter as tk
-from tkinter import font
+from openai import OpenAI
 
-root = tk.Tk()
-fonts = list(font.families())
-fonts.sort()
-for f in fonts:
-    print(f)
-root.destroy()
+try:
+    client = OpenAI(api_key="sjdhbvjshb")
+    client.models.list()
+except Exception as e:
+    print(f"Fail. Error = {e}")

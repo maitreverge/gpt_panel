@@ -1,3 +1,0 @@
-Tkinter isn't distributed through pip
-
-We need to install it
