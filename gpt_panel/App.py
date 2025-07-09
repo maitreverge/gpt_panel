@@ -38,9 +38,15 @@ class CTkSliderWithValue(ctk.CTkFrame):
             width=width,
             command=lambda value: self._update_value_label(value, call_callback=True),
             number_of_steps=nb_steps,
+            # fg_color="#0004FF", # ! This foreground change the color of the slider itself
+            button_color="#7AA4FF",
+            button_hover_color="#0041F5",
+            progress_color="#0087F5",
+
         )
 
         self.slider.grid(row=1, column=0, columnspan=2, padx=5, pady=(0, 5), sticky="ew")
+        # self.slider.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
         
         """
         The callback is called before self.length_slider exists on your App instance.
@@ -85,10 +91,11 @@ class App(ctk.CTk):
 
         self.model_selector = ctk.CTkSegmentedButton(
             self,
-            fg_color="#F39C19",
+            fg_color="#89DEFF",
             border_width=3,
             values=self.gpt_engine.models,
             command=self.update_model,
+            font=("Bembo", 17)
         )
 
         # Default first model == gpt-4.1-nano
@@ -115,6 +122,8 @@ class App(ctk.CTk):
         self.length_slider.grid(
             row=0,
             column=0,
+            padx=10,
+            pady=5,
         )
 
         self.temperature_slider = CTkSliderWithValue(
@@ -130,6 +139,8 @@ class App(ctk.CTk):
         self.temperature_slider.grid(
             row=1,
             column=0,
+            padx=10,
+            pady=5,
         )
 
         self.max_output_tokens_slider = CTkSliderWithValue(
@@ -145,18 +156,21 @@ class App(ctk.CTk):
         self.max_output_tokens_slider.grid(
             row=2,
             column=0,
+            padx=10,
+            pady=5,
         )
 
         self.answer_textbox = ctk.CTkTextbox(
             self,
             corner_radius=10,
-            fg_color="#C0DF85",
+            fg_color="#1DB6FD",
             state="disabled",
             border_width=5,
             border_color="#000000",
         )
 
-        self.answer_textbox.grid(row=1, column=0, sticky="we")
+        self.answer_textbox.grid(row=1, column=0, sticky="we", padx=10, pady=10)
+        # self.answer_textbox.grid(row=1, column=0, sticky="we")
 
         self.prompt_textbox = ctk.CTkTextbox(
             self,
@@ -167,7 +181,8 @@ class App(ctk.CTk):
             wrap="word",
         )
 
-        self.prompt_textbox.grid(row=3, column=0, sticky="ew")
+        self.prompt_textbox.grid(row=3, column=0, sticky="ew", padx=10, pady=10)
+        # self.prompt_textbox.grid(row=3, column=0, sticky="ew")
 
         self.prompt_textbox.bind("<KeyRelease>", self.adjust_textbox_height)
 
