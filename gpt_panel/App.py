@@ -95,7 +95,7 @@ class App(ctk.CTk):
         self.model_selector.set(self.gpt_engine.models[0])
 
         self.model_selector.grid(
-            row=0,
+            row=1,
             column=2,
         )
 
@@ -156,7 +156,7 @@ class App(ctk.CTk):
             border_color="#000000",
         )
 
-        self.answer_textbox.grid(row=0, column=0, sticky="we")
+        self.answer_textbox.grid(row=1, column=0, sticky="we")
 
         self.prompt_textbox = ctk.CTkTextbox(
             self,
@@ -167,7 +167,7 @@ class App(ctk.CTk):
             wrap="word",
         )
 
-        self.prompt_textbox.grid(row=1, column=0, sticky="ew")
+        self.prompt_textbox.grid(row=3, column=0, sticky="ew")
 
         self.prompt_textbox.bind("<KeyRelease>", self.adjust_textbox_height)
 
@@ -182,7 +182,7 @@ class App(ctk.CTk):
             command=self.button_callback,
             image=self.img_send_button,
         )
-        self.send_button.grid(row=1, column=1, padx=10, pady=10, sticky="e")
+        self.send_button.grid(row=3, column=1, padx=10, pady=10, sticky="e")
 
     def update_length(self, event=None):
         self.gpt_engine.lenght_choice = int(self.length_slider.get())
