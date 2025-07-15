@@ -1,14 +1,18 @@
 from App import App
 from openai import OpenAI
+from Api_validator import Api_validator
+import sys
 
 def main():
 
     ########### Block for entering the api key
-    # try:
-    #     test_client = OpenAI(api_key="")
-
-    # except Exception as e:
-    #     ...
+    try:
+        starter = Api_validator()
+        starter.validate_key()
+    except Exception as e:
+        # ! Launch the API window
+        print(f"LAUNCHING WINDOW API. Error type : {e}")
+        sys.exit(1)
     
     ########### Block for entering the api key
     
