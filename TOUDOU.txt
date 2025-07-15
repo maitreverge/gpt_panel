@@ -1,12 +1,6 @@
 ✅
 ⛔
 
-TODO BRAINSTORM :
-⛔ Make 3 little "?" buttons for the 3 sliders
-⛔ Make an interface for entering the API key at the beginning
-⛔ 
-⛔ 
-⛔ 
 
 3/06:
 ✅ Enable GPT context
@@ -33,3 +27,15 @@ TODO BRAINSTORM :
 ✅ Bottom and top little text
 ✅ Better colors and shapes, windows resizing
 ✅ Prompt window resize without making top content overlap above window
+
+15/07:
+✅ Intermediate API key window implemented 
+✅ Hide API key with the function `hide_key`
+
+
+TODO BRAINSTORM :
+⛔ Make 3 little "?" buttons for the 3 sliders
+⛔ Refactor the GPT engine token calculator (exploiter les retours objets API plutot que de se reposer sur une biblioteque)
+⛔ 
+⛔ 
+⛔ 
