@@ -11,7 +11,7 @@ def main():
     try:
         starter = Api_validator()
         starter.validate_key()
-        # break # ! Encapsulate this later
+        # break # ! Encapsulate this later in a While True loop
     except Exception as e:
         # ! Launch the API window
         print(f"LAUNCHING WINDOW API. Error type : {e}")
