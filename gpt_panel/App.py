@@ -249,7 +249,7 @@ class App(ctk.CTk):
         Dynamically adjust the height of the prompt textbox
         based on total content length
         """
-        text = self.prompt_textbox.get("1.0", tk.END)
+        text = self.prompt_textbox.get("1.0", tk.END) # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         num_lines = len(text.split("\n"))
         text_width = self.prompt_textbox.winfo_width()
