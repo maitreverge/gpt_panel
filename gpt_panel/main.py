@@ -1,18 +1,23 @@
 from App import App
 from openai import OpenAI
 from Api_validator import Api_validator
+from Api_window import Api_window
 import sys
 
 def main():
 
     ########### Block for entering the api key
+    # while True:
     try:
         starter = Api_validator()
         starter.validate_key()
+        # break # ! Encapsulate this later
     except Exception as e:
         # ! Launch the API window
         print(f"LAUNCHING WINDOW API. Error type : {e}")
-        sys.exit(1)
+        api_w = Api_window()
+        api_w.mainloop()
+            # sys.exit(1)
     
     ########### Block for entering the api key
     
