@@ -13,13 +13,16 @@ MIN_TOKEN_OUTPUT = 16
 MAX_TOKEN_OUTPUT = 32768
 
 class CtkToolTip():
+    """
+    Custom class for creating TooTips specifically for main window sliders.
+    """
     def __init__(self, frame, row_nb, hover_msg):
 
         self.length_info_button = ctk.CTkButton(
-            frame,
+            frame, # ! frame = self.frame_sliders from App (tk container for all 3 sliders)
             text="?",               
-            width=30,             
-            height=30,           
+            width=15,             
+            height=15,           
             corner_radius=15,       
             font=("Arial", 14),
             fg_color="#3a3a3a",     
