@@ -32,10 +32,12 @@
 ✅ Intermediate API key window implemented 
 ✅ Hide API key with the function `hide_key`
 
+16/07:
+⛔ Make 3 little "?" buttons for the 3 sliders
+
 
 TODO BRAINSTORM :
-⛔ Make 3 little "?" buttons for the 3 sliders
 ⛔ Refactor the GPT engine token calculator (exploiter les retours objets API plutot que de se reposer sur une biblioteque)
-⛔ 
+⛔ Leverage `from tktooltip import ToolTip` library for making interface more intuitive
 ⛔ 
 ⛔ 

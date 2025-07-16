@@ -2,6 +2,8 @@ import customtkinter as ctk
 import tkinter as tk
 from PIL import Image
 from Gpt_engine import Gpt_engine
+from tktooltip import ToolTip
+# https://pypi.org/project/tkinter-tooltip/
 
 
 WINDOWS_WIDTH = 800
@@ -127,6 +129,33 @@ class App(ctk.CTk):
         self.frame_sliders = ctk.CTkFrame(self)
         self.frame_sliders.grid(row=2, column=2)
 
+
+        ### GPT QUESTION MARK BUTTON
+        self.length_info_button = ctk.CTkButton(
+            self.frame_sliders,
+            text="?",               # or use "i"
+            width=30,               # Increased from 12
+            height=30,              # Increased from 12
+            corner_radius=15,       # Half of width/height to make it circular
+            font=("Arial", 14),
+            fg_color="#3a3a3a",     # Background color
+            hover_color="#505050",  # Optional hover effect
+            text_color="white",
+            # command=lambda: print("Show tooltip or info here"),
+        )
+
+        # Place it to the left of the slider
+        self.length_info_button.grid(
+            row=0,
+            column=0,
+            padx=5,
+            pady=5,
+            # sticky="w",
+        )
+
+        ToolTip(self.length_info_button, msg="LENGHT HOVER MESSAGE")
+        ### GPT QUESTION MARK BUTTON
+
         self.length_slider = CTkSliderWithValue(
             self.frame_sliders,
             title="LENGTH",
@@ -139,10 +168,17 @@ class App(ctk.CTk):
 
         self.length_slider.grid(
             row=0,
-            column=0,
+            column=1,
             padx=10,
             pady=5,
         )
+
+
+        # ? Question mark number 1
+        # self.length_qm = None
+        # myTip = Hovertip(self.length_slider,'This is \na multiline tooltip.')
+
+
 
         self.temperature_slider = CTkSliderWithValue(
             self.frame_sliders,
@@ -156,10 +192,12 @@ class App(ctk.CTk):
 
         self.temperature_slider.grid(
             row=1,
-            column=0,
+            column=1,
             padx=10,
             pady=5,
         )
+
+        # ToolTip(self.temperature_slider, msg="Hover infoHover infoHover\n\n\ninfoHover infoHover infoHover infoHover infoHover infoHover infoHover infoHover infoHover infoHover infoHover infoHover info", follow=True)
 
         self.max_output_tokens_slider = CTkSliderWithValue(
             self.frame_sliders,
@@ -173,7 +211,7 @@ class App(ctk.CTk):
 
         self.max_output_tokens_slider.grid(
             row=2,
-            column=0,
+            column=1,
             padx=10,
             pady=5,
         )
