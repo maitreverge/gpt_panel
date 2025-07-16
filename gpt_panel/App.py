@@ -43,7 +43,7 @@ class CtkToolTip():
 
 class CTkSliderWithValue(ctk.CTkFrame):
     # Need to put default values in __init__ function
-    def __init__(self, master, title="Slider", min_value=0, max_value=100, default_value=50, width=300, nb_steps=5, passed_function=None, **kwargs):
+    def __init__(self, master, title="Slider", min_value=0, max_value=100, default_value=50, width=300, nb_steps=5, passed_function=None, is_temperature=False, **kwargs):
         super().__init__(master, **kwargs)
         
         self.passed_function = passed_function
@@ -57,7 +57,7 @@ class CTkSliderWithValue(ctk.CTkFrame):
         self.title_label.grid(row=0, column=0, sticky="w", padx=5, pady=(5, 0))
         
         # Create value label
-        self.value_label = ctk.CTkLabel(self, text=str(default_value), width=50)
+        self.value_label = ctk.CTkLabel(self, text=str(int(default_value)), width=50)
         self.value_label.grid(row=0, column=1, sticky="e", padx=5, pady=(5, 0))
         
         # Create slider
@@ -67,7 +67,7 @@ class CTkSliderWithValue(ctk.CTkFrame):
             to=max_value, 
             variable=self.current_value,
             width=width,
-            command=lambda value: self._update_value_label(value, call_callback=True),
+            command=lambda value: self._update_value_label(value, is_temperature, call_callback=True),
             number_of_steps=nb_steps,
             # fg_color="#0004FF", # ! This foreground change the color of the slider itself
             button_color="#7AA4FF",
@@ -85,10 +85,16 @@ class CTkSliderWithValue(ctk.CTkFrame):
         Use a flag to control when the callback is called.
         """
         # Initialize value display
-        self._update_value_label(default_value, call_callback=False)
+        self._update_value_label(default_value, is_temperature, call_callback=False)
 
-    def _update_value_label(self, value, call_callback=True):
-        formatted_value = float(value) if isinstance(value, float) else int(value)
+    def _update_value_label(self, value, is_temperature, call_callback=True):
+        """
+        Displays the current value of the slider.
+        Format value to 2 digits float number if the slider
+        is the temparture slider
+        """
+        formatted_value = f"{value:.2f}" if is_temperature else int(value)
+        
         self.value_label.configure(text=f"{formatted_value}")
         if self.passed_function and call_callback:
             self.passed_function()
@@ -172,7 +178,8 @@ class App(ctk.CTk):
             max_value=5, 
             default_value=3,
             nb_steps=4, # nb steps MOINS celui tout a gauche
-            passed_function=self.update_length
+            passed_function=self.update_length,
+            is_temperature=False,
         )
 
         self.length_slider.grid(
@@ -196,7 +203,8 @@ class App(ctk.CTk):
             max_value=2, 
             default_value=1,
             nb_steps=200,
-            passed_function=self.update_temperature
+            passed_function=self.update_temperature,
+            is_temperature=True,
         )
 
         self.temperature_slider.grid(
@@ -219,7 +227,8 @@ class App(ctk.CTk):
             max_value=MAX_TOKEN_OUTPUT,
             default_value=2048,
             nb_steps=MAX_TOKEN_OUTPUT - MIN_TOKEN_OUTPUT - 1,
-            passed_function=self.update_max_output_tokens
+            passed_function=self.update_max_output_tokens,
+            is_temperature=False,
         )
 
         self.max_output_tokens_slider.grid(

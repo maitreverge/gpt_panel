@@ -34,7 +34,7 @@
 
 16/07:
 ✅ Make 3 little "?" buttons for the 3 sliders
-✅ 
+✅ Improved sliders (:.2f for temperature, int for the others)
 
 
 TODO BRAINSTORM :
