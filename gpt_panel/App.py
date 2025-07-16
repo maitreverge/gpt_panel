@@ -5,6 +5,11 @@ from Gpt_engine import Gpt_engine
 from tktooltip import ToolTip
 # https://pypi.org/project/tkinter-tooltip/
 
+"""
+padx=(left, right) or padx=value - adds horizontal padding
+pady=(top, bottom) or pady=value - adds vertical padding
+"""
+
 
 WINDOWS_WIDTH = 800
 WINDOWS_HEIGHT = 1100
@@ -132,7 +137,7 @@ class App(ctk.CTk):
             font=("Nimbus Mono Ps", 45)
         )
 
-        self.window_label_top.grid(row=0, column=1, padx=10, pady=10)
+        self.window_label_top.grid(row=0, column=0, columnspan=3, sticky="we")
 
         self.window_label_bottom = ctk.CTkLabel(
             self,
@@ -162,13 +167,13 @@ class App(ctk.CTk):
         )
 
         self.frame_sliders = ctk.CTkFrame(self)
-        self.frame_sliders.grid(row=2, column=2)
+        self.frame_sliders.grid(row=2, column=2, pady=(0, 40)) ######################################################
 
 
         self.length_info_button = CtkToolTip(
             self.frame_sliders,
             0, # row_nb
-            "LENGTH_INFO_"
+            """1 - Concise\n2 - Brief\n3 - Balanced\n4 - Detailed\n5 - Extensive"""
         )
 
         self.length_slider = CTkSliderWithValue(
@@ -193,7 +198,7 @@ class App(ctk.CTk):
         self.temperature_info_button = CtkToolTip(
             self.frame_sliders,
             1, # row_nb
-            "TEMPERATURE_INFO"
+            "Controls randomness\nLowering temperature turns the models deterministic and repetitive."
         )
 
         self.temperature_slider = CTkSliderWithValue(
@@ -217,7 +222,7 @@ class App(ctk.CTk):
         self.max_tokens_info_button = CtkToolTip(
             self.frame_sliders,
             2, # row_nb
-            "MAX_TOKEN_INFO_INFO"
+            "Controls the total maximum length the answer will be.\n(100 tokens ~= 75 words)"
         )
 
         self.max_output_tokens_slider = CTkSliderWithValue(
@@ -248,7 +253,7 @@ class App(ctk.CTk):
             height=350,
         )
 
-        self.answer_textbox.grid(row=1, column=0, sticky="we", padx=10, pady=10)
+        self.answer_textbox.grid(row=1, column=0, columnspan=2, sticky="we", padx=10, pady=10)
         # self.answer_textbox.grid(row=1, column=0, sticky="we")
 
         self.prompt_textbox = ctk.CTkTextbox(
@@ -256,11 +261,12 @@ class App(ctk.CTk):
             corner_radius=10,
             border_width=5,
             border_color="#000000",
-            height=40,
+            width=60,
+            height=60,
             wrap="word",
         )
 
-        self.prompt_textbox.grid(row=3, column=0, sticky="ew", padx=10, pady=10)
+        self.prompt_textbox.grid(row=3, column=0, columnspan=2, sticky="ew", padx=10, pady=10)
         # self.prompt_textbox.grid(row=3, column=0, sticky="ew")
 
         self.prompt_textbox.bind("<KeyRelease>", self.adjust_textbox_height)
@@ -273,11 +279,14 @@ class App(ctk.CTk):
         self.send_button = ctk.CTkButton(
             self,
             text="SEND TO GPT",
+            width=60,
+            height=60,
+            corner_radius=40,
             command=self.button_callback,
             image=self.img_send_button,
         )
         # self.send_button.grid(row=3, column=1, padx=10, pady=10, sticky="e")
-        self.send_button.grid(row=3, column=1, padx=10, pady=10)
+        self.send_button.grid(row=3, column=2, padx=42, pady=10, sticky="w")
 
     def update_length(self, event=None):
         self.gpt_engine.lenght_choice = int(self.length_slider.get())

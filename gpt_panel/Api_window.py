@@ -6,15 +6,30 @@ from openai import OpenAI
 WINDOWS_HEIGHT = 800
 WINDOWS_WIDTH = 800
 
+LITTLE_WINDOWS_HEIGHT = 400
+LITTLE_WINDOWS_WIDTH = 300
+
 
 class ToplevelWindow(ctk.CTkToplevel):
     def __init__(self, *args, txt_input="", **kwargs):
         super().__init__(*args, **kwargs)
-        self.geometry("400x300")
-
-        self.label = ctk.CTkLabel(self, text=txt_input)
-        self.label.pack(padx=20, pady=20)
+        self.geometry(f"{LITTLE_WINDOWS_HEIGHT}x{LITTLE_WINDOWS_WIDTH}")
         self.title("⛔  INVALID KEY  ⛔")
+
+        self.label = ctk.CTkLabel(
+            self,
+            text=txt_input,
+            # justify="center",
+            font=("Arial", 15),
+            # wraplength=int(LITTLE_WINDOWS_WIDTH * 0.8), 
+        )
+
+        self.label.grid(
+            row=0,
+            column=0,
+            padx=LITTLE_WINDOWS_WIDTH * 0.2,
+            pady=LITTLE_WINDOWS_HEIGHT * 0.2,
+        )
 
 
 class Api_window(ctk.CTk):
@@ -36,8 +51,8 @@ class Api_window(ctk.CTk):
         self.api_key = ""
 
         self.welcome_text = """
-        GPT PANEL\n
-        Welcome! To get started, please enter your OpenAI API key.\nThis allows the app to connect securely and provide you with powerful AI features.
+        ** WELCOME TO GPT PANEL **\n
+        To get started, please enter your OpenAI API key.\nThis allows the app to connect securely and provide you with powerful AI features.
         """
 
         self.main_text = ctk.CTkLabel(
@@ -47,37 +62,48 @@ class Api_window(ctk.CTk):
             # border_color="#BE3030", # useless need reading doc
             # wrap="word",
             justify="center",
+            font=("Arial", 20),
+            wraplength=int(WINDOWS_WIDTH * 0.8),
         )
 
         self.main_text.grid(row=0, column=0, sticky="we")
 
-        # self.main_text.insert(0.0, self.welcome_text)
+        self.api_prompt = tk.Entry(
+            self,
+            textvariable="testhehe",
+            show="\u2022"
+        )
 
-        self.api_prompt = tk.Entry(self, textvariable="testhehe", show="\u2022")
-
-        self.api_prompt.grid(row=1, column=0, sticky="we")
+        self.api_prompt.grid(row=1, column=0, columnspan=2, padx=(20, 20), sticky="we")
 
         self.hide_checkbox = ctk.CTkCheckBox(
             self,
             text="DISPLAY API KEY",
             command=self.hide_key,
+            width=50,
+            height=50,
         )
 
-        self.hide_checkbox.grid(row=2, column=0)
+        self.hide_checkbox.grid(row=1, column=0, pady=(100, 0))
 
         self.validate_button = ctk.CTkButton(
             self,
             text="VALIDATE",
             command=self.validate_key,
+            width=60,
+            height=60,
         )
 
-        self.validate_button.grid(row=3, column=0)
+        self.validate_button.grid(row=3, column=0, pady=(0, 100), padx=(75, 0), sticky="w")
+
         self.cancel_button = ctk.CTkButton(
             self,
             text="CANCEL",
             command=self.quit_program,
+            width=60,
+            height=60,
         )
-        self.cancel_button.grid(row=3, column=1)
+        self.cancel_button.grid(row=3, column=0, sticky="e", pady=(0, 100), padx=(0, 75))
 
     def quit_program(self, event=None):
         print(f"QUIT THE PROGRAM")
@@ -107,7 +133,7 @@ class Api_window(ctk.CTk):
             # !   Warn the user about his invalid key
             print(f"⛔ INCORRECT API KEY")
             self.toplevel_window = ToplevelWindow(
-                self, txt_input="INVALID KEY, PLEASE ENTER A VALID KEY"
+                self, txt_input="INVALID KEY\nPLEASE ENTER A VALID KEY"
             )
         else:
             # !  Write the key in the format OPEN_AI_KEY=... in the .env file
