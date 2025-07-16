@@ -12,6 +12,32 @@ WINDOWS_HEIGHT = 1100
 MIN_TOKEN_OUTPUT = 16
 MAX_TOKEN_OUTPUT = 32768
 
+class CtkToolTip():
+    def __init__(self, frame, row_nb, hover_msg):
+
+        self.length_info_button = ctk.CTkButton(
+            frame,
+            text="?",               
+            width=30,             
+            height=30,           
+            corner_radius=15,       
+            font=("Arial", 14),
+            fg_color="#3a3a3a",     
+            hover_color="#505050", 
+            text_color="white",
+        )
+
+        self.length_info_button.grid(
+            row=row_nb,
+            column=0,
+            padx=5,
+            pady=5,
+        )
+
+        # Hover message
+        ToolTip(self.length_info_button, msg=hover_msg)
+
+
 class CTkSliderWithValue(ctk.CTkFrame):
     # Need to put default values in __init__ function
     def __init__(self, master, title="Slider", min_value=0, max_value=100, default_value=50, width=300, nb_steps=5, passed_function=None, **kwargs):
@@ -130,31 +156,11 @@ class App(ctk.CTk):
         self.frame_sliders.grid(row=2, column=2)
 
 
-        ### GPT QUESTION MARK BUTTON
-        self.length_info_button = ctk.CTkButton(
+        self.length_info_button = CtkToolTip(
             self.frame_sliders,
-            text="?",               # or use "i"
-            width=30,               # Increased from 12
-            height=30,              # Increased from 12
-            corner_radius=15,       # Half of width/height to make it circular
-            font=("Arial", 14),
-            fg_color="#3a3a3a",     # Background color
-            hover_color="#505050",  # Optional hover effect
-            text_color="white",
-            # command=lambda: print("Show tooltip or info here"),
+            0, # row_nb
+            "LENGTH_INFO_"
         )
-
-        # Place it to the left of the slider
-        self.length_info_button.grid(
-            row=0,
-            column=0,
-            padx=5,
-            pady=5,
-            # sticky="w",
-        )
-
-        ToolTip(self.length_info_button, msg="LENGHT HOVER MESSAGE")
-        ### GPT QUESTION MARK BUTTON
 
         self.length_slider = CTkSliderWithValue(
             self.frame_sliders,
@@ -174,11 +180,11 @@ class App(ctk.CTk):
         )
 
 
-        # ? Question mark number 1
-        # self.length_qm = None
-        # myTip = Hovertip(self.length_slider,'This is \na multiline tooltip.')
-
-
+        self.temperature_info_button = CtkToolTip(
+            self.frame_sliders,
+            1, # row_nb
+            "TEMPERATURE_INFO"
+        )
 
         self.temperature_slider = CTkSliderWithValue(
             self.frame_sliders,
@@ -197,7 +203,11 @@ class App(ctk.CTk):
             pady=5,
         )
 
-        # ToolTip(self.temperature_slider, msg="Hover infoHover infoHover\n\n\ninfoHover infoHover infoHover infoHover infoHover infoHover infoHover infoHover infoHover infoHover infoHover infoHover info", follow=True)
+        self.max_tokens_info_button = CtkToolTip(
+            self.frame_sliders,
+            2, # row_nb
+            "MAX_TOKEN_INFO_INFO"
+        )
 
         self.max_output_tokens_slider = CTkSliderWithValue(
             self.frame_sliders,
