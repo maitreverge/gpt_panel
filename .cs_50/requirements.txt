@@ -1,0 +1,9 @@
+requests
+openai
+customtkinter
+flake8
+black
+tiktoken
+pillow
+tkinter-tooltip
+pytest
