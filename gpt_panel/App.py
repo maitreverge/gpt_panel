@@ -10,7 +10,6 @@ padx=(left, right) or padx=value - adds horizontal padding
 pady=(top, bottom) or pady=value - adds vertical padding
 """
 
-
 WINDOWS_WIDTH = 800
 WINDOWS_HEIGHT = 1100
 
@@ -41,13 +40,11 @@ class CtkToolTip():
             padx=5,
             pady=5,
         )
-
         # Hover message
         ToolTip(self.length_info_button, msg=hover_msg)
 
 
 class CTkSliderWithValue(ctk.CTkFrame):
-    # Need to put default values in __init__ function
     def __init__(self, master, title="Slider", min_value=0, max_value=100, default_value=50, width=300, nb_steps=5, passed_function=None, is_temperature=False, **kwargs):
         super().__init__(master, **kwargs)
         
@@ -82,7 +79,6 @@ class CTkSliderWithValue(ctk.CTkFrame):
         )
 
         self.slider.grid(row=1, column=0, columnspan=2, padx=5, pady=(0, 5), sticky="ew")
-        # self.slider.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
         
         """
         The callback is called before self.length_slider exists on your App instance.
@@ -105,11 +101,15 @@ class CTkSliderWithValue(ctk.CTkFrame):
             self.passed_function()
 
     def get(self):
-        # Return the current slider value
+        """
+        Get the current slider value
+        """
         return self.current_value.get()
     
     def set(self, value):
-        # Set the slider value
+        """
+        Set the slider value
+        """
         self.current_value.set(value)
         self._update_value_label(value)
 
@@ -121,11 +121,8 @@ class App(ctk.CTk):
         self.img_send_button = ctk.CTkImage(
             dark_image=Image.open("../assets/dark_send.jpg")
         )
-
         ctk.set_appearance_mode("light")
-
         self.gpt_engine = Gpt_engine()
-
         self.title("GPT PANEL")
         self.geometry(f"{WINDOWS_HEIGHT}x{WINDOWS_WIDTH}")
         self.grid_columnconfigure(0, weight=1)
@@ -136,7 +133,6 @@ class App(ctk.CTk):
             text="GPT PANEL",
             font=("Nimbus Mono Ps", 45)
         )
-
         self.window_label_top.grid(row=0, column=0, columnspan=3, sticky="we")
 
         self.window_label_bottom = ctk.CTkLabel(
@@ -144,7 +140,6 @@ class App(ctk.CTk):
             text="Made with ❤️ by maitreverge",
             font=("Nimbus Mono Ps", 12)
         )
-
         self.window_label_bottom.grid(row=4, column=1, padx=10, pady=10)
 
         self.model_selector = ctk.CTkSegmentedButton(
@@ -155,20 +150,16 @@ class App(ctk.CTk):
             command=self.update_model,
             font=("Bembo", 17),
             text_color_disabled="#817F7B",
-            # selected_hover_color="#003CFF"
         )
-
         # Default first model == gpt-4.1-nano
         self.model_selector.set(self.gpt_engine.models[0])
-
         self.model_selector.grid(
             row=1,
             column=2,
         )
 
         self.frame_sliders = ctk.CTkFrame(self)
-        self.frame_sliders.grid(row=2, column=2, pady=(0, 40)) ######################################################
-
+        self.frame_sliders.grid(row=2, column=2, pady=(0, 40))
 
         self.length_info_button = CtkToolTip(
             self.frame_sliders,
@@ -182,18 +173,16 @@ class App(ctk.CTk):
             min_value=1, 
             max_value=5, 
             default_value=3,
-            nb_steps=4, # nb steps MOINS celui tout a gauche
+            nb_steps=4,
             passed_function=self.update_length,
             is_temperature=False,
         )
-
         self.length_slider.grid(
             row=0,
             column=1,
             padx=10,
             pady=5,
         )
-
 
         self.temperature_info_button = CtkToolTip(
             self.frame_sliders,
@@ -211,7 +200,6 @@ class App(ctk.CTk):
             passed_function=self.update_temperature,
             is_temperature=True,
         )
-
         self.temperature_slider.grid(
             row=1,
             column=1,
@@ -224,7 +212,6 @@ class App(ctk.CTk):
             2, # row_nb
             "Controls the total maximum length the answer will be.\n(100 tokens ~= 75 words)"
         )
-
         self.max_output_tokens_slider = CTkSliderWithValue(
             self.frame_sliders,
             title="MAX TOKEN OUTPUT",
@@ -252,9 +239,7 @@ class App(ctk.CTk):
             border_color="#000000",
             height=350,
         )
-
         self.answer_textbox.grid(row=1, column=0, columnspan=2, sticky="we", padx=10, pady=10)
-        # self.answer_textbox.grid(row=1, column=0, sticky="we")
 
         self.prompt_textbox = ctk.CTkTextbox(
             self,
@@ -265,12 +250,9 @@ class App(ctk.CTk):
             height=60,
             wrap="word",
         )
-
         self.prompt_textbox.grid(row=3, column=0, columnspan=2, sticky="ew", padx=10, pady=10)
-        # self.prompt_textbox.grid(row=3, column=0, sticky="ew")
 
         self.prompt_textbox.bind("<KeyRelease>", self.adjust_textbox_height)
-
         self.prompt_textbox.bind(
             "<KeyRelease-Return>",
             command=self.button_callback
@@ -285,26 +267,22 @@ class App(ctk.CTk):
             command=self.button_callback,
             image=self.img_send_button,
         )
-        # self.send_button.grid(row=3, column=1, padx=10, pady=10, sticky="e")
         self.send_button.grid(row=3, column=2, padx=42, pady=10, sticky="w")
 
     def update_length(self, event=None):
+        """ Update the length choice in the `gpt_engine` object."""
         self.gpt_engine.lenght_choice = int(self.length_slider.get())
-        # print(f"Value of length selector = {int(self.length_slider.get())}")
 
     def update_temperature(self, event=None):
         """
         Update the temperature in the `gpt_engine` object, dividing it by 100. The CtkSlider only accepts `int` possibles values.
         """
         self.gpt_engine.current_temperature = self.temperature_slider.get()
-        # print(f"Value of temperature selector = {self.temperature_slider.get()}")
     
     def update_max_output_tokens(self, event=None):
         """
         Slider function which updates the maximum amount of tokens for a given API response.
-
         """
-        # print(f"Update max output tokens : {self.max_output_tokens_slider.get()}")
         self.gpt_engine.max_output_tokens = int(self.max_output_tokens_slider.get())
 
     def update_model(self, event=None):
@@ -318,7 +296,7 @@ class App(ctk.CTk):
         Dynamically adjust the height of the prompt textbox
         based on total content length
         """
-        text = self.prompt_textbox.get("1.0", tk.END) # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        text = self.prompt_textbox.get("1.0", tk.END)
 
         num_lines = len(text.split("\n"))
         text_width = self.prompt_textbox.winfo_width()
@@ -328,12 +306,16 @@ class App(ctk.CTk):
             if len(line) > avg_chars_per_line:
                 num_lines += len(line) // avg_chars_per_line
 
-        # Set height based on content (min 1 line, max 5 lines)
+        # Limit the height to a maximum of 100 lines
+        # and a minimum of 40 lines
         new_height = min(max(40, num_lines * 20), 100)
         self.prompt_textbox.configure(height=new_height)
 
     # ! IMPORTANT = write an event=None for callback events with bind
     def button_callback(self, event=None):
+        """
+        Handle button click event to send prompt content to GPT.
+        """
         prompt_content = self.prompt_textbox.get(1.0, tk.END).replace("\n", " ")
 
         print("\n##########\nAPI Response\n##########\n\n")

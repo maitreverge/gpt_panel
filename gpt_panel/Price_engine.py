@@ -2,8 +2,6 @@ import csv
 import tiktoken
 
 MILLION = 1000000
-
-
 PRICE_FILE = "../assets/price_models.csv"
 
 
@@ -18,9 +16,12 @@ class Price_engine():
         # Default pricer
         self.current_price_model = "gpt-4.1-nano"
 
-    # @proprety == Getter
+    # @property == Getter
     @property
     def total_spent(self):
+        """
+        Get the total amount spent.
+        """
         return f"Total spent : ${self._total_spent:.8f}"
 
     def price_parser(self):
@@ -35,12 +36,13 @@ class Price_engine():
 
         for item in data:
             model_name = item["model"]
+            # Convert all values to float and divide by million
+            # to convert cents to dollars
             model_data = {
                 k: float(v) / MILLION for k, v in item.items() if k != "model"
             }
             nested_dict[model_name] = model_data
 
-        # print(nested_dict)
         return nested_dict
 
     def update_tokens(self, input, output, cache):

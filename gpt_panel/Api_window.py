@@ -19,9 +19,7 @@ class ToplevelWindow(ctk.CTkToplevel):
         self.label = ctk.CTkLabel(
             self,
             text=txt_input,
-            # justify="center",
             font=("Arial", 15),
-            # wraplength=int(LITTLE_WINDOWS_WIDTH * 0.8), 
         )
 
         self.label.grid(
@@ -44,10 +42,7 @@ class Api_window(ctk.CTk):
         self.grid_rowconfigure(1, weight=1)
 
         self.toplevel_window = None
-
         self.env_path = "../.env"
-
-        ################# ? USEFULL ??
         self.api_key = ""
 
         self.welcome_text = """
@@ -59,8 +54,6 @@ class Api_window(ctk.CTk):
             self,
             text=self.welcome_text,
             width=300,
-            # border_color="#BE3030", # useless need reading doc
-            # wrap="word",
             justify="center",
             font=("Arial", 20),
             wraplength=int(WINDOWS_WIDTH * 0.8),
@@ -83,7 +76,6 @@ class Api_window(ctk.CTk):
             width=50,
             height=50,
         )
-
         self.hide_checkbox.grid(row=1, column=0, pady=(100, 0))
 
         self.validate_button = ctk.CTkButton(
@@ -93,7 +85,6 @@ class Api_window(ctk.CTk):
             width=60,
             height=60,
         )
-
         self.validate_button.grid(row=3, column=0, pady=(0, 100), padx=(75, 0), sticky="w")
 
         self.cancel_button = ctk.CTkButton(
@@ -106,6 +97,9 @@ class Api_window(ctk.CTk):
         self.cancel_button.grid(row=3, column=0, sticky="e", pady=(0, 100), padx=(0, 75))
 
     def quit_program(self, event=None):
+        """
+        Quit the program if the user clicks on the CANCEL button.
+        """
         print(f"QUIT THE PROGRAM")
         sys.exit(1)
 
@@ -124,7 +118,6 @@ class Api_window(ctk.CTk):
         """
         Returns True if the API key is valid, False is not
         """
-        # self.api_key = self.api_prompt.get(1.0, tk.END).strip()
         self.api_key = self.api_prompt.get().strip()
         client = OpenAI(api_key=self.api_key)
         try:

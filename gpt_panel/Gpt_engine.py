@@ -27,6 +27,9 @@ class Gpt_engine:
         self.current_answer = ""
 
     def __str__(self):
+        """
+        Return a string representation of the Gpt_engine object.
+        """
         return f"Current API key= {self._api_key[0:4]}....{self._api_key[-6:-1]}"
 
     def init_lenght_choice(self) :
@@ -42,7 +45,6 @@ class Gpt_engine:
                 instruction = f.readline()
                 result[key] = instruction
 
-        # print(result)
         return result
     
     def read_api_key(self):
@@ -56,6 +58,10 @@ class Gpt_engine:
         return result
 
     def send_request(self, prompt):
+        """
+        Send a request to the OpenAI API with the given prompt
+        and current settings.
+        """
         args = {
             "instructions": self.dict_lenght_choices[self.lenght_choice],
             "model": self.current_model,
@@ -79,12 +85,7 @@ class Gpt_engine:
         # Save the current conv id.
         self.current_reponse_id = self.current_reponse_id or response.id
 
-        # print(f"CURRENT RESPONSE ID = {self.current_reponse_id}")
-
         self.price_engine.update_tokens(
             prompt, response.output_text, response.output_text
         )
-
-        # print(response.output_text)
-
         self.current_answer = response.output_text

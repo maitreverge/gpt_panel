@@ -1,8 +1,6 @@
 from App import App
-from openai import OpenAI
 from Api_validator import Api_validator
 from Api_window import Api_window
-import sys
 
 
 def intermediate_api_check():
@@ -27,12 +25,8 @@ def main():
     intermediate_api_check()
 
     app = App()
-
-    print(app.gpt_engine)  # This the API key
-
+    print(app.gpt_engine)
     app.mainloop()
-
     print(app.gpt_engine.price_engine.total_spent)
-
 
 main()
