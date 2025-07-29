@@ -30,6 +30,16 @@ def test_price_parser_structure(tmp_path, monkeypatch):
 def test_gpt_engine_init_reads_api_key(tmp_path, monkeypatch):
     env_file = tmp_path / ".env"
     env_file.write_text("OPEN_AI_KEY=sk-testkey\n")
+    # Create the required assets directory and prompt file
+    prompt_dir = tmp_path / "assets" / "prompt_lenght"
+    prompt_dir.mkdir(parents=True)
+    prompt_file = prompt_dir / "prompt_length.md"
+    prompt_file.write_text("1 - \nInstruction1\n2 - \nInstruction2\n3 - \nInstruction3\n4 - \nInstruction4\n5 - \nInstruction5\n")
+    # Create the required price CSV file
+    csv_content = "model,input,output,cache\ngpt-4.1-nano,100,200,300\n"
+    price_file = tmp_path / "assets" / "price_models.csv"
+    price_file.write_text(csv_content)
+    monkeypatch.setattr("Price_engine.PRICE_FILE", str(price_file))
     monkeypatch.chdir(tmp_path)
     from Gpt_engine import Gpt_engine
     ge = Gpt_engine()
@@ -38,10 +48,19 @@ def test_gpt_engine_init_reads_api_key(tmp_path, monkeypatch):
     assert ge.lenght_choice == 3
 
 def test_gpt_engine_init_lenght_choice(tmp_path, monkeypatch):
+    # Create the .env file
+    env_file = tmp_path / ".env"
+    env_file.write_text("OPEN_AI_KEY=sk-testkey\n")
+    # Create the required price CSV file
+    csv_content = "model,input,output,cache\ngpt-4.1-nano,100,200,300\n"
+    price_file = tmp_path / "assets" / "price_models.csv"
+    # Create the required assets directory and prompt file
     prompt_dir = tmp_path / "assets" / "prompt_lenght"
     prompt_dir.mkdir(parents=True)
     prompt_file = prompt_dir / "prompt_length.md"
     prompt_file.write_text("1 - \nInstruction1\n2 - \nInstruction2\n3 - \nInstruction3\n4 - \nInstruction4\n5 - \nInstruction5\n")
+    price_file.write_text(csv_content)
+    monkeypatch.setattr("Price_engine.PRICE_FILE", str(price_file))
     monkeypatch.chdir(tmp_path)
     from Gpt_engine import Gpt_engine
     ge = Gpt_engine()
