@@ -193,3 +193,4 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 api.key
+.DS_Store
