@@ -33,7 +33,7 @@ Key features of `gpt_panel` include:
 - **Error Handling**  
   Graceful handling of common API and network errors.
 
-## 🖥️ Installation
+## 🖥️ INSTALLATION
 
 To get started with `gpt_panel`, follow these steps:
 
@@ -53,15 +53,14 @@ To get started with `gpt_panel`, follow these steps:
 > The `p_env.sh` is a custom bash script for managing Python Virtual Environment and dependecies.
 
 For more info on this script, run :
-
-```bash
-./p_env.sh -h
-```
+	```bash
+	./p_env.sh -h
+	```
    
 4. **Run the application:**
-   ```bash
-   ./run.sh
-   ```
+	```bash
+	./run.sh
+	```
    
 The first time you launch the app, you will be prompted to enter your OpenAI API key.
 
@@ -91,7 +90,7 @@ The first time you launch the app, you will be prompted to enter your OpenAI API
   <img src="img/sliders.png" width="70%"/>
 </p>
 
-## 🗂️ Project Structure
+## 🗂️ PROJECT STRUCTURE
 
 - **gpt_panel/**  
   Main application package.
@@ -104,23 +103,23 @@ The first time you launch the app, you will be prompted to enter your OpenAI API
 - **requirements.txt**  
   Python dependencies.
 
-## 🚧 Limitations
+## 🚧 LIMITATIONS
 
 - Only supports GPT-4.1 model family (update as new models are added).
 - Requires a valid OpenAI API key.
 - GUI is optimized for desktop and may not scale well to mobile/tablet.
 - Advanced features (system prompts, function calls, streaming, etc.) are not yet supported.
 
-## 🧑‍💻 Author
+## 🧑‍💻 AUTHOR
 
 - **Florian VERGE** ([@maitreverge](https://github.com/maitreverge)) – Design, core logic, UI/UX
 
-The project started in 2024 as part of CS50 Python.
+The project started in July 2025 and was completed over the course of 3 weeks.
 
-## 📜 License
+## 📜 LICENCE
 
 This project is licensed under the [MIT License](LICENSE).
 
-## 🤝 Contributing
+## 🤝 CONTRIBUTING
 
 Contributions are welcome! Open a GitHub Issue or submit a Pull Request 🚀
