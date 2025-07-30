@@ -90,6 +90,12 @@ The first time you launch the app, you will be prompted to enter your OpenAI API
   <img src="img/sliders.png" width="70%"/>
 </p>
 
+When closing the app, a final message appears in the console, indicating how much you spent during your session.
+<p align="center">
+  <img src="img/pricing.png" width="70%"/>
+</p>
+
+
 ## 🗂️ PROJECT STRUCTURE
 
 - **gpt_panel/**  
